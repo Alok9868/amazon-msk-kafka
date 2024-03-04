@@ -9,11 +9,10 @@ import org.springframework.stereotype.Service;
 public class KafkaConsumer  {
 
     private static final Logger logger= LoggerFactory.getLogger(KafkaConsumer.class);
-    @KafkaListener(topics = "example8",groupId = "demo-consumer-group")
-    public void consume(String message)
+    @KafkaListener(topics = "example8",groupId = "demo-consumer-group" ,containerFactory = "containerFactory")
+    public void consume(@Payload List<String> messages, Acknowledgment acknowledgment)
     {
-        logger.info(String.format("Message recieved-> %s",message));
-
+         acknowledgment.acknowledge();
     }
 
 
